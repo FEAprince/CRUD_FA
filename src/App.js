@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-function App() {
+export default function App() {
+  const [APIData, setAPIData] = useState([]);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    axios
+      .get(`https://6273b645345e1821b2200dff.mockapi.io/crud1`)
+      .then((getData) => {
+        setAPIData(getData.data);
+        console.log("DATA");
+      })
+      .catch((err) => {
+        setAPIData([]);
+      });
+  };
+
+  var count = Object.keys(APIData).length;
+  console.log(count);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div class="container">
+      <div class="row">
+        <div className="text boxui col-sm">
+        
+          Total Data <span></span>
+          {count}
+        </div>
+        <div className="text boxui col-sm ">
+        
+          Total Data <span></span>
+          {count}
+        </div>
+        <div className="text boxui col-sm ">
+        
+          Total Data <span></span>
+          {count}
+        </div>
+        <div className="text boxui col-sm ">
+        
+          Total Data <span></span>
+          {count}
+        </div>
+        <div className="text boxui col-sm ">
+        
+          Total Data <span></span>
+          {count}
+        </div>
+      </div>
     </div>
   );
 }
-
-export default App;
