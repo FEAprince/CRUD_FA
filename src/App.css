@@ -1,48 +1,220 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500&display=swap");
 .main {
-  /* height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 30px;
+  
 }
 .navbar {
   text-decoration: none;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  
+  list-style-type: none;
 }
 
 .navbar-nav {
   color: azure;
+  }
+.nav-item {
+  margin-left: 1%;
+  margin-right: 1%;
 }
 .text-light {
   text-decoration: none;
+ 
 }
 .tableui {
   border-radius: 8px;
-  margin: 24px;
+  margin-bottom: 2%;
   padding: 24px;
-  width: 500px;
+  border-top-color: rgb(0, 0, 0);
+
+  
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2%;
 
   background-color: rgb(215, 243, 250);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  
 }
 
-.text{
+.text {
   font-weight: 600;
   text-align: center;
   padding: 25px;
   
+  color: #000000;
 }
-.boxui{
- 
+.boxui {
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 2%;
   font-weight: 700;
   background-color: rgb(205, 152, 255);
-  font-size: 18px;
-  margin: 24px;
-  padding: 24px;
+  font-size: 18px;border-top-color: rgb(0, 0, 0);
+
+  padding: 4%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 8px;
+ 
+}
+.file {
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 2%;
+ 
+}
 
+.box {
+  position: absolute;
+  cursor: move;
+  color: black;
+  max-width: 215px;
+  border-radius: 5px;
+  padding: 1em;
+  margin: auto;
+  user-select: none;
+  background-color: aqua;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  
+}
+.todomain {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+  text-align: center;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 2%;
+  border-radius: 8px;
+  color: black;
+  
+}
+
+.todocard {
+  margin: 5%;
+ 
+}
+
+.todo {
+  background-color: rgb(236, 231, 241);
+  font-weight: 600;
+  border-radius: 8px;
+  margin: 2%;
+  border-radius: 8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  
+}
+
+.droppable {
+  background-color: rgb(236, 231, 241);
+  font-weight: 600;
+  border-radius: 8px;
+  
+  margin: 2%;
+  border-radius: 8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.draggable {
+  background-color: rgb(91, 31, 160);
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 5%;
+  margin: 5%;
+  
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  color: white;
+}
+
+.mybutton {
+  border-radius: 8px;
+  background-color: #000000;
+  margin: 2%;
+  color: white;
+  
+}
+
+.myinput {
+  border-radius: 8px;
+  
+}
+.profiimg {
+  border-radius: 50%;
+  width: 75px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.round-effect {
+  color: #dd4124;
+  cursor: pointer;
+  /*   border:1px solid red; */
+
+  font-size: 16px;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 9px;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  text-decoration: none;
+}
+
+.round-effect:hover {
+  text-decoration: none;
+  background: #dd4124;
+  color: #fff;
+}
+.round-effect:hover a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.active {
+  background: #dd4124;
+  color: #fff;
+}
+a:link {
+  text-decoration: none;
+  color: #dd4124;
+}
+.tableui2 {
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+.m {
+  margin-top: 25%;
+  margin-left: 47%;
+  margin-bottom: 25%;
+}
+.errorstyle{
+  color: hsl(9, 100%, 50%);
+  
+}
+.myb{
+  border-radius: 4px;
+  background-color: rgb(157, 115, 236);
+  color: #000000;
+  padding-left: 2%;
+  padding-right:2%;
+  padding-top:1%;
+  padding-bottom:1%;box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  font-weight: 600;
+
+}
+.myb:hover{
+  background-color: aliceblue;
+  transition: 0.6s;
 }
