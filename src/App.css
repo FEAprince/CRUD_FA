@@ -57,10 +57,11 @@
   font-weight: 700;
   background-color: rgb(205, 152, 255);
   font-size: 18px;border-top-color: rgb(0, 0, 0);
-
+  margin-bottom: 2%;
   padding: 4%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 8px;
+  text-align: center;
  
 }
 .file {

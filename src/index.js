@@ -2,6 +2,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import Read from "./components/read/Read";
+import New from "./components/read/New";
 import Create from "./components/create/Create";
 // import File from "./components/file/File";
 import { Link } from "react-router-dom";
@@ -93,6 +94,7 @@ root.render(
       {/* <Route path="User" element={<User />} /> */}
       <Route path="Create" element={<Create />} />
       <Route path="Update" element={<Update />} />
+      <Route path="New" element={<New />} />
       {/* <Route path="File" element={<File/>} /> */}
       <Route path="Dragcom" element={<Dragcom/>} />
       <Route path="Todo" element={<Todo/>}/>      <Route path="Register" element={<Register/>}/>

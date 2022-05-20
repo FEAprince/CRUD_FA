@@ -1,26 +1,30 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
-import "mdb-react-ui-kit/dist/css/mdb.min.css";
-import {
-  MDBBtn,
-  MDBModal,
-  MDBModalDialog,
-  MDBModalContent,
-  MDBModalHeader,
-  MDBModalTitle,
-  MDBModalBody,
-  MDBModalFooter,
-  MDBCheckbox,
-} from "mdb-react-ui-kit";
-export default function Read() {
-  const [APIData, setAPIData] = useState([]);
-  const [basicModal, setBasicModal] = useState(false);
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CircularProgress from "@mui/material/CircularProgress";
+import Checkbox from "@mui/material/Checkbox";
 
-  const toggleShow = () => setBasicModal(!basicModal);
+export default function Read() {
+  document.title = "Data";
+  const [APIData, setAPIData] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -51,23 +55,8 @@ export default function Read() {
       .delete(`https://6273b645345e1821b2200dff.mockapi.io/crud1/${id}/`)
       .then(() => {
         getData();
-        notify();
       });
   };
-  const notify = () =>
-    toast.success("Data Deleted!", {
-      theme: "colored",
-    });
-  // const checkboxs(){
-
-  // }
-
-  function checkAll() {
-    var inputs = document.querySelectorAll(".check");
-    for (var i = 0; i < inputs.length; i++) {
-      inputs[i].checked = true;
-    }
-  }
 
   var count = Object.keys(APIData).length;
   console.log(count);
@@ -91,6 +80,14 @@ export default function Read() {
 
       <div className="tableui">
         <h1>Data</h1>
+        <Button
+          variant="outlined"
+          startIcon={<DeleteIcon />}
+          onClick={() => onDelete()}
+        >
+          All Delete
+        </Button>
+        <span></span>
 
         <table className="table table-bordered ">
           <thead>
@@ -103,8 +100,13 @@ export default function Read() {
               <th scope="col">Update</th>
               <th scope="col">Delete</th>
               <th>
-                <input type="button" onClick={checkAll()} value="CHECK ALL" />
-                <input type="reset" value="UNCHECK ALL" />
+                <Checkbox
+                  type="checkbox"
+                  className="form-check-input"
+                  // checked={this.state.MasterChecked}
+                  id="mastercheck"
+                  // onChange={(e) => onMasterCheck(e)}
+                />
               </th>
             </tr>
           </thead>
@@ -120,65 +122,69 @@ export default function Read() {
                     <td>{data.phoneno}</td>
                     <td>
                       <Link to="/update">
-                        <button
-                          className="btn btn-success"
+                        <Button
+                          variant="contained"
                           onClick={() => setData(data)}
                         >
                           Update
-                        </button>
+                        </Button>
                       </Link>
                     </td>
                     <td>
-                      <MDBBtn onClick={toggleShow}>Delete</MDBBtn>
+                      <Button
+                        variant="outlined"
+                        startIcon={<DeleteIcon />}
+                        onClick={handleClickOpen}
+                      >
+                        Delete
+                      </Button>
                     </td>
                     <td>
-                      <MDBCheckbox
-                        name="checkNoLabel"
-                        id="checkNoLabel"
-                        value=""
-                        aria-label="..."
-                        className="check"
+                      <Checkbox
+                        type="checkbox"
+                        // checked={user.selected}
+                        className="form-check-input"
+                        id="rowcheck{user.id}"
+                        // onChange={(e) => this.onItemCheck(e, user)}
                       />
                     </td>
                   </tr>
                 );
               })
             ) : (
-              <td colSpan="7" className="text">
-                Data Not Found!
+              <td colSpan="10" className="text">
+                <CircularProgress />
               </td>
             )}
           </tbody>
         </table>
-        {APIData.length > 0 ? (
-          APIData.map((data, index) => {
-            return (
-              <MDBModal show={basicModal} setShow={setBasicModal} tabIndex="-1">
-                <MDBModalDialog>
-                  <MDBModalContent>
-                    <MDBModalHeader>
-                      <MDBModalTitle>Data Delete</MDBModalTitle>
-                      <MDBBtn
-                        className="btn-close"
-                        color="none"
-                        onClick={toggleShow}
-                      ></MDBBtn>
-                    </MDBModalHeader>
-                    <MDBModalBody>Are You Sure to Data Delete?</MDBModalBody>
 
-                    <MDBModalFooter>
-                      <MDBBtn color="secondary" onClick={toggleShow}>
-                        Close
-                      </MDBBtn>
-                      <MDBBtn
-                        onClick={(e) => [onDelete(data.id), toggleShow()]}
-                      >
-                        Yes, Delete
-                      </MDBBtn>
-                    </MDBModalFooter>
-                  </MDBModalContent>
-                </MDBModalDialog>
-              </MDBModal>
+        {APIData.length > 0 ? (
+          APIData.map((data) => {
+            return (
+              <Dialog
+                key={data.id}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Delete Data"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Are You Sure For Delete Data?
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>No</Button>
+
+                  <Button onClick={() => [onDelete(data.id), handleClose()]}>
+                    Delete
+                  </Button>
+                </DialogActions>
+              </Dialog>
             );
           })
         ) : (
