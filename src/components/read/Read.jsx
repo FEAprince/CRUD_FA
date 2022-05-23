@@ -11,7 +11,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CircularProgress from "@mui/material/CircularProgress";
-import Checkbox from "@mui/material/Checkbox";
+// import Checkbox from "@mui/material/Checkbox";
 
 export default function Read() {
   document.title = "Data";
@@ -99,7 +99,7 @@ export default function Read() {
               <th scope="col">Phone No</th>
               <th scope="col">Update</th>
               <th scope="col">Delete</th>
-              <th>
+              {/* <th>
                 <Checkbox
                   type="checkbox"
                   className="form-check-input"
@@ -107,7 +107,7 @@ export default function Read() {
                   id="mastercheck"
                   // onChange={(e) => onMasterCheck(e)}
                 />
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
@@ -139,7 +139,7 @@ export default function Read() {
                         Delete
                       </Button>
                     </td>
-                    <td>
+                    {/* <td>
                       <Checkbox
                         type="checkbox"
                         // checked={user.selected}
@@ -147,7 +147,7 @@ export default function Read() {
                         id="rowcheck{user.id}"
                         // onChange={(e) => this.onItemCheck(e, user)}
                       />
-                    </td>
+                    </td> */}
                   </tr>
                 );
               })

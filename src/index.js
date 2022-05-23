@@ -2,30 +2,23 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import Read from "./components/read/Read";
-import New from "./components/read/New";
 import Create from "./components/create/Create";
 // import File from "./components/file/File";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./App.css";
 import Update from "./components/update/Update";
 import Dragcom from "./components/dragcom/dragcom";
 import Todo from "./components/todo/Todo";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
+import New from "./components/read/New";
+import Newdata from "./components/read/Newdata";
 // import User from "./components/user/User";
-import React  from 'react';
+import React from "react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const logout = () => {
-  this.setState({ 
-    sessionToken: '', 
-  });
-  localStorage.clear();
-  
-}
 
 root.render(
-  
   <BrowserRouter>
     <nav className="navbar navbar-expand-lg navbar-black bg-black">
       <div className="container-fluid">
@@ -35,7 +28,6 @@ root.render(
             alt="logo"
             className="m-2"
             width={100}
-            
           />
         </Link>
         <button
@@ -50,42 +42,74 @@ root.render(
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse " id="navbarNavAltMarkup">
-          
           <li className="nav-item">
-            <Link className="align-self-end text-light" to="/Read">
-              Data
-            </Link>
+            <NavLink
+              to="/Read"
+              className={({ isActive }) => (isActive ? "link-active" : "link")}
+            >
+              Read
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link className="align-self-end text-light" to="/File">
+            <NavLink
+              to="/File"
+              className={({ isActive }) => (isActive ? "link-active" : "link")}
+            >
               File Upload
-            </Link>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link className="align-self-end text-light" to="/dragcom">
+            <NavLink
+              to="/dragcom"
+              className={({ isActive }) => (isActive ? "link-active" : "link")}
+            >
               Drag Components
-            </Link>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link className="align-self-end text-light" to="/todo">
+            <NavLink
+              to="/todo"
+              className={({ isActive }) => (isActive ? "link-active" : "link")}
+            >
               To-Do List
-            </Link>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link className="align-self-end text-light" to="/User">
+            <NavLink
+              to="/User"
+              className={({ isActive }) => (isActive ? "link-active" : "link")}
+            >
               User
-            </Link>
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link className="align-self-end text-light" to="/login" onClick={logout}>
-              Log Out
-            </Link>
+            <NavLink
+              to="/login"
+              className={({ isActive }) => (isActive ? "link-active" : "link")}
+            >
+              Login
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink
+              to="/New"
+              className={({ isActive }) => (isActive ? "link-active" : "link")}
+            >
+              New
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink
+              to="/Newdata"
+              className={({ isActive }) => (isActive ? "link-active" : "link")}
+            >
+              Newdata
+            </NavLink>
           </li>
         </div>
         <li className="d-flex justify-content-between text-light">
           <h2 className="">React.js</h2>
         </li>
-        
       </div>
     </nav>
     <Routes>
@@ -96,16 +120,12 @@ root.render(
       <Route path="Update" element={<Update />} />
       <Route path="New" element={<New />} />
       {/* <Route path="File" element={<File/>} /> */}
-      <Route path="Dragcom" element={<Dragcom/>} />
-      <Route path="Todo" element={<Todo/>}/>      <Route path="Register" element={<Register/>}/>
-    <Route path="Login" element={<Login/>}/>
+      <Route path="Dragcom" element={<Dragcom />} />
+      <Route path="Todo" element={<Todo />} />
+      <Route path="Register" element={<Register />} />
+      <Route path="Login" element={<Login />} />
+      <Route path="Newdata" element={<Newdata />} />
+     
     </Routes>
-    
-    
   </BrowserRouter>
 );
-
-
-
-
-
