@@ -63,7 +63,7 @@ export default function Login() {
   const postData = (event) => {
     event.preventDefault();
     axios
-      .post("https://6273b645345e1821b2200dff.mockapi.io/login1", {
+      .post("https://www.mecallapi.com/api/users/create", {
         username,
         password,
       })
@@ -141,8 +141,8 @@ export default function Login() {
         </div>
         <p>
           Already Signup ?{" "}
-          <Link to="/Login">
-            <Button>Login</Button>
+          <Link to="/Sigin">
+            <Button>Sign in</Button>
           </Link>
         </p>
       </Box>

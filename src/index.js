@@ -11,12 +11,15 @@ import New from "./components/read/New";
 import Newdata from "./components/read/Newdata";
 import Navbar from "./components/Navbar/Navbar";
 import Signup from "./components/login/Signup";
-import Login from "./components/login/Login";
-import File from "./components/file/File";
-import User from "./components/user/User";
+// import File from "./components/file/File";
+// import User from "./components/user/User";
+import Sigin from "./components/LoginAPI/Sigin";
+
 import React from "react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+var isLoggedIn = localStorage.getItem("accessToken");
 
 root.render(
   <BrowserRouter>
@@ -24,10 +27,14 @@ root.render(
       <Route
         path="/"
         element={
-          <>
-            <Navbar />
-            <App />
-          </>
+          isLoggedIn ? (
+            <>
+              <Navbar />
+              <App />
+            </>
+          ) : (
+            <Sigin />
+          )
         }
       />
       <Route
@@ -88,13 +95,17 @@ root.render(
       <Route
         path="/Newdata"
         element={
-          <>
-            <Navbar />
-            <Newdata />
-          </>
+          isLoggedIn ? (
+            <>
+              <Navbar />
+              <Newdata />
+            </>
+          ) : (
+            <Signup />
+          )
         }
       />
-      <Route
+      {/* <Route
         path="/File"
         element={
           <>
@@ -111,10 +122,10 @@ root.render(
             <User />
           </>
         }
-      />
+      /> */}
 
       <Route path="/Signup" element={<Signup />} />
-      <Route path="/Login" element={<Login />} />
+      <Route path="/Sigin" element={<Sigin />} />
     </Routes>
   </BrowserRouter>
 );

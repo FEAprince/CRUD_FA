@@ -1,13 +1,35 @@
 import React from "react";
+
+import IconButton from "@mui/material/IconButton";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import Avatar from "@mui/material/Avatar";
+
 import { Link, NavLink } from "react-router-dom";
 
-export default function Navbar(props) {
-  
+export default function Navbar() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+    window.location.href = "/Sigin";
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-black bg-black">
         <div className="container-fluid">
-          <Link to="./">
+          <Link to="/">
             <img
               src="https://frontendarmy.com/wp-content/uploads/2022/02/frontendarmy-logo.svg"
               alt="logo"
@@ -101,6 +123,19 @@ export default function Navbar(props) {
           </div>
           <li className="d-flex justify-content-between text-light">
             <h2 className="">React.js</h2>
+            <div>
+              <IconButton onClick={handleMenu} color="inherit">
+                <Avatar src={user.avatar} />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
+            </div>
           </li>
         </div>
       </nav>
