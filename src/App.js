@@ -15,6 +15,10 @@ export default function App() {
   useEffect(() => {
     getDataUser();
   }, []);
+  const [APIDataUser1, setAPIDataUser1] = useState([]);
+  useEffect(() => {
+    getDataUser1();
+  }, []);
 
   const getData = () => {
     axios
@@ -48,6 +52,17 @@ export default function App() {
         setAPIDataUser([]);
       });
   };
+  const getDataUser1 = () => {
+    axios
+      .get(`https://6273b645345e1821b2200dff.mockapi.io/login1`)
+      .then((getDataUser1) => {
+        setAPIDataUser1(getDataUser1.data);
+        console.log("DATA USER");
+      })
+      .catch((err) => {
+        setAPIDataUser1([]);
+      });
+  };
   var count = Object.keys(APIData).length;
   console.log(count);
 
@@ -55,7 +70,8 @@ export default function App() {
   console.log(counttodo);
   var countUser = Object.keys(APIDataUser).length;
   console.log(countUser);
-
+  var countUser1 = Object.keys(APIDataUser1).length;
+  console.log(countUser1);
   return (
     <div className="container tableui">
       <div className=" row justify-content-md-center">
@@ -70,6 +86,10 @@ export default function App() {
         <div className="text boxui col-sm">
           Total User <br /> <span></span>
           {countUser}
+        </div>
+        <div className="text boxui col-sm">
+          Total User <br /> <span></span>
+          {countUser1}
         </div>
       </div>
     </div>

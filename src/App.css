@@ -234,3 +234,26 @@ a:link {
 .link-active:hover {
   color: #5fe0c6;
 }
+.loginui {
+  border-radius: 8px;
+  margin-bottom: 2%;
+  padding: 24px;
+  border-top-color: rgb(0, 0, 0);
+  margin-left: 35%;
+  margin-right:35%;
+  margin-top: 2%;
+  background-color: rgb(215, 243, 250);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+ 
+
+}
+.loginuia {
+  margin-bottom: 2%;
+  margin-top: 5%;
+}
+.loginuib {
+  text-align: center;
+  margin-bottom: 10%;
+}
+

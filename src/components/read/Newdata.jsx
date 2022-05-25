@@ -29,7 +29,7 @@ export default function App() {
 
   return (
     <CacheProvider value={muiCache}>
-      <div className="tableui" style={{ height: 470 }}>
+      <div className="tableui">
         <ThemeProvider theme={createTheme()}>
           <MUIDataTable title={"User Data"} data={data} columns={columns} />
         </ThemeProvider>

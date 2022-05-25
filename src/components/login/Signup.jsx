@@ -81,7 +81,7 @@ export default function Login() {
 
   return (
     <div className="loginui">
-      <h2 className="loginuib">Login</h2>
+      <h2 className="loginuib">Signup</h2>
       <Box
         component="form"
         autoComplete="off"
@@ -136,13 +136,13 @@ export default function Login() {
         {passwordErr && <Alert severity="error">{passwordErr}</Alert>}
         <div className="loginuia">
           <Button variant="contained" type="submit" onClick={validate}>
-            Login
+            Signup
           </Button>
         </div>
         <p>
-          New User?
-          <Link to="/Signup">
-            <Button>Signup</Button>
+          Already Signup ?{" "}
+          <Link to="/Login">
+            <Button>Login</Button>
           </Link>
         </p>
       </Box>
@@ -153,7 +153,7 @@ export default function Login() {
             severity="success"
             sx={{ width: "100%" }}
           >
-            Login Successfully!
+            Signup Successfully!
           </Alert>
         </Snackbar>
       </Stack>
