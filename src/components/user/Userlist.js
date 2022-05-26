@@ -23,7 +23,7 @@ function UserList(props) {
     const results = await axios.get(
       "https://6273b645345e1821b2200dff.mockapi.io/login"
     );
-    console.log("data", results.data);
+    
     setUserData(results.data);
   };
   useEffect(() => {
@@ -35,7 +35,7 @@ function UserList(props) {
       .get(`https://6273b645345e1821b2200dff.mockapi.io/login`)
       .then((getDataUser) => {
         setAPIDataUser(getDataUser.data);
-        console.log("DATA USER");
+        
       })
       .catch((err) => {
         setAPIDataUser([]);
@@ -43,7 +43,7 @@ function UserList(props) {
   };
 
   var countUser = Object.keys(APIDataUser).length;
-  console.log(countUser);
+
 
   if (props.loading) {
     return <div className="spinner-grow m" role="status" />;
@@ -67,7 +67,7 @@ function UserList(props) {
             <th scope="col">Delete</th>
           </tr>
         </thead>
-        {console.log("userData", userData)}
+        
         <tbody>
           {userData &&
             userData.map((post, index) => (

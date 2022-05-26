@@ -43,7 +43,7 @@ export default function Read() {
       .get(`https://6273b645345e1821b2200dff.mockapi.io/crud1`)
       .then((getData) => {
         setAPIData(getData.data);
-        console.log("DATA");
+        
       })
       .catch((err) => {
         setAPIData([]);
@@ -59,7 +59,7 @@ export default function Read() {
   };
 
   var count = Object.keys(APIData).length;
-  console.log(count);
+ 
 
   return (
     <div>

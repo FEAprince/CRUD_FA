@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
@@ -66,28 +66,6 @@ export default function Create() {
         navigate(`/Read`);
       });
   };
-
-  const [APIData, setAPIData] = useState([]);
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = () => {
-    axios
-      .get(`https://6273b645345e1821b2200dff.mockapi.io/crud1`)
-      .then((getData) => {
-        setAPIData(getData.data);
-        console.log("DATA");
-      })
-      .catch((err) => {
-        setAPIData([]);
-      });
-  };
-
-  
-
-  var count = Object.keys(APIData).length;
-  console.log(count);
 
   return (
     <div>

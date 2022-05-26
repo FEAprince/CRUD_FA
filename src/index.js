@@ -11,8 +11,8 @@ import New from "./components/read/New";
 import Newdata from "./components/read/Newdata";
 import Navbar from "./components/Navbar/Navbar";
 import Signup from "./components/login/Signup";
-// import File from "./components/file/File";
-// import User from "./components/user/User";
+import File from "./components/file/File";
+import User from "./components/user/User";
 import Sigin from "./components/LoginAPI/Sigin";
 
 import React from "react";
@@ -40,55 +40,79 @@ root.render(
       <Route
         path="/Read"
         element={
-          <>
-            <Navbar />
-            <Read />
-          </>
+          isLoggedIn ? (
+            <>
+              <Navbar />
+              <Read />
+            </>
+          ) : (
+            <Sigin />
+          )
         }
       />
       <Route
         path="/Create"
         element={
-          <>
-            <Navbar />
-            <Create />
-          </>
+          isLoggedIn ? (
+            <>
+              <Navbar />
+              <Create />
+            </>
+          ) : (
+            <Sigin />
+          )
         }
       />
       <Route
         path="/Update"
         element={
-          <>
-            <Navbar />
-            <Update />
-          </>
+          isLoggedIn ? (
+            <>
+              <Navbar />
+              <Update />
+            </>
+          ) : (
+            <Sigin />
+          )
         }
       />
       <Route
         path="/New"
         element={
-          <>
-            <Navbar />
-            <New />
-          </>
+          isLoggedIn ? (
+            <>
+              <Navbar />
+              <New />
+            </>
+          ) : (
+            <Sigin />
+          )
         }
       />
       <Route
         path="/Dragcom"
         element={
-          <>
-            <Navbar />
-            <Dragcom />
-          </>
+          isLoggedIn ? (
+            <>
+              <Navbar />
+              <Dragcom />
+            </>
+          ) : (
+            <Sigin />
+          )
         }
       />
       <Route
         path="/Todo"
         element={
-          <>
-            <Navbar />
-            <Todo />
-          </>
+          isLoggedIn ? (
+            <>
+              <Navbar />
+              <Todo />
+            </>
+          ) : (
+            <Sigin />
+          )
         }
       />
 
@@ -105,7 +129,7 @@ root.render(
           )
         }
       />
-      {/* <Route
+      <Route
         path="/File"
         element={
           <>
@@ -122,7 +146,7 @@ root.render(
             <User />
           </>
         }
-      /> */}
+      />
 
       <Route path="/Signup" element={<Signup />} />
       <Route path="/Sigin" element={<Sigin />} />

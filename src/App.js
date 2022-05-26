@@ -1,9 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Button from "@mui/material/Button";
 
 export default function App() {
   const [APIData, setAPIData] = useState([]);
+  const API = new URL("https://6273b645345e1821b2200dff.mockapi.io/");
   useEffect(() => {
     getData();
   }, []);
@@ -19,10 +21,11 @@ export default function App() {
   useEffect(() => {
     getDataUser1();
   }, []);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const getData = () => {
     axios
-      .get(`https://6273b645345e1821b2200dff.mockapi.io/crud1`)
+      .get(`${API}crud1`)
       .then((getData) => {
         setAPIData(getData.data);
       })
@@ -33,7 +36,7 @@ export default function App() {
 
   const getDataTodo = () => {
     axios
-      .get(`https://6273b645345e1821b2200dff.mockapi.io/todo`)
+      .get(`${API}todo`)
       .then((getDataTodo) => {
         setAPIDataTodo(getDataTodo.data);
       })
@@ -43,10 +46,9 @@ export default function App() {
   };
   const getDataUser = () => {
     axios
-      .get(`https://6273b645345e1821b2200dff.mockapi.io/login`)
+      .get(`${API}login`)
       .then((getDataUser) => {
         setAPIDataUser(getDataUser.data);
-        console.log("DATA USER");
       })
       .catch((err) => {
         setAPIDataUser([]);
@@ -54,42 +56,64 @@ export default function App() {
   };
   const getDataUser1 = () => {
     axios
-      .get(`https://6273b645345e1821b2200dff.mockapi.io/login1`)
+      .get(`${API}login1`)
       .then((getDataUser1) => {
         setAPIDataUser1(getDataUser1.data);
-        console.log("DATA USER");
       })
       .catch((err) => {
         setAPIDataUser1([]);
       });
   };
   var count = Object.keys(APIData).length;
-  console.log(count);
-
   var counttodo = Object.keys(APIDataTodo).length;
-  console.log(counttodo);
   var countUser = Object.keys(APIDataUser).length;
-  console.log(countUser);
   var countUser1 = Object.keys(APIDataUser1).length;
-  console.log(countUser1);
+
   return (
-    <div className="container tableui">
-      <div className=" row justify-content-md-center">
-        <div className="text boxui col-sm">
-          Total Data <br /> <span></span>
-          {count}
-        </div>
-        <div className="text boxui col-sm">
-          Total Todo <br /> <span></span>
-          {counttodo}
-        </div>
-        <div className="text boxui col-sm">
-          Total User <br /> <span></span>
-          {countUser}
-        </div>
-        <div className="text boxui col-sm">
-          Total User <br /> <span></span>
-          {countUser1}
+    <div>
+      <div className="container tableui">
+        <div className="boxui row align-items-start ">
+          <p className="text col profileui">
+            Total Data <br /> <span></span>
+            {count}
+          </p>
+          <p className="text col profileui ">
+            Total Todo <br /> <span></span>
+            {counttodo}
+          </p>
+          <p className="text col  profileui ">
+            Total User <br /> <span></span>
+            {countUser}
+          </p>
+          <p className="text col  profileui ">
+            Total User <br /> <span></span>
+            {countUser1}
+          </p>
+          <div className="profileui col">
+            <div className="text">
+              <h4 className="">
+                {user.fname}
+                {user.lname}
+              </h4>
+              <div>
+                <img
+                  id="avatar"
+                  className="image-crop"
+                  src={user.avatar}
+                  alt="Profile"
+                ></img>
+              </div>
+              <div id="bio">
+                <p></p>
+              </div>
+              <p>Email:{user.email}</p>
+
+              <div id="buttons">
+                <Button>Messages</Button>
+                <Button>E-Mail</Button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ export default function Todo() {
       .get(`https://6273b645345e1821b2200dff.mockapi.io/todo`)
       .then((getData) => {
         setAPIData(getData.data);
-        console.log("DATA");
+        
       })
       .catch((err) => {
         setAPIData([]);
@@ -45,7 +45,7 @@ export default function Todo() {
       ;
   };
   var count = Object.keys(APIData).length;
-  console.log(count);
+ 
 
 
   
@@ -83,7 +83,7 @@ export default function Todo() {
             {APIData.length > 0 ? (
               APIData.map((data) => {
                 return (
-                  <Draggable>
+                  <Draggable key={data.id}>
                   <div className="draggable" key={data.id}>
                     {/* <td>{data.id}</td> */}
                     {data.todo}

@@ -20,20 +20,19 @@ export class Pagination extends Component {
       <nav>
         <ul className="pagination justify-content-center">
           <li className="page-item">
-            
-            <a className="page-link" href="#" onClick={() => prevPage()}>
+            <a className="page-link" href="/User" onClick={() => prevPage()}>
               Previous
             </a>
           </li>
           {pageNumbers.map((num) => (
             <li className="page-item" key={num}>
-              <a onClick={() => paginate(num)} href="#" className="page-link">
+              <a onClick={() => paginate(num)}  href="/User"className="page-link">
                 {num}
               </a>
             </li>
           ))}
           <li className="page-item">
-            <a className="page-link" href="#" onClick={() => nextPage()}>
+            <a className="page-link" href="/User" onClick={() => nextPage()}>
               Next
             </a>
           </li>

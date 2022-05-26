@@ -152,6 +152,7 @@ function App() {
                       <img
                         key={i}
                         src={e}
+                        alt="File"
                         className="w-100 border p-1 m-2 shadow-sm"
                         style={{ maxHeight: 150, objectFit: "contain" }}
                       />
@@ -183,15 +184,7 @@ function FlexContainer(props) {
   );
 }
 
-function Details(props) {
-  const { summary = "details", children, className = "" } = props;
-  return (
-    <details className={className}>
-      <summary>{summary}</summary>
-      <div className="mt-3 animated faster slideInDown">{children}</div>
-    </details>
-  );
-}
+
 
 function PreCode(props) {
   const { ugly, className = "", children } = props;

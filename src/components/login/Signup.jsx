@@ -17,6 +17,7 @@ import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import InputLabel from "@mui/material/InputLabel";
 import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -81,7 +82,9 @@ export default function Login() {
 
   return (
     <div className="loginui">
-      <h2 className="loginuib">Signup</h2>
+      <Typography className="loginuib" component="h1" variant="h5">
+        Sign Up
+      </Typography>
       <Box
         component="form"
         autoComplete="off"

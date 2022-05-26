@@ -30,7 +30,7 @@ export default class Dragcom extends Component {
   };
 
   onDragStart = (e, id) => {
-    console.log("dragstart:", id);
+    
     e.dataTransfer.setData("id", id);
   };
 

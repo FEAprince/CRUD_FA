@@ -6,7 +6,9 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import swal from "sweetalert";
 import { Link } from "react-router-dom";
-
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 async function loginUser(credentials) {
   return fetch("https://www.mecallapi.com/api/login", {
     method: "POST",
@@ -20,7 +22,14 @@ async function loginUser(credentials) {
 export default function Signin() {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [open, setOpen] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
+    setOpen(false);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await loginUser({
@@ -46,11 +55,12 @@ export default function Signin() {
       <CssBaseline />
       <Grid />
       <Grid>
-        <div className="loginuib">
-          <Typography component="h1" variant="h5">
+        <div>
+          <Typography className="loginuib" component="h1" variant="h5">
             Sign in
           </Typography>
           <form noValidate onSubmit={handleSubmit}>
+            <h6 className="loginuia">Username</h6>
             <TextField
               variant="outlined"
               margin="normal"
@@ -61,6 +71,7 @@ export default function Signin() {
               label="Email Address"
               onChange={(e) => setUserName(e.target.value)}
             />
+            <h6 className="loginuia">Password</h6>
             <TextField
               variant="outlined"
               margin="normal"
@@ -73,16 +84,27 @@ export default function Signin() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <Button type="submit" fullWidth variant="contained" color="primary">
-              Sign Up
+              Sign In
             </Button>
             <p>
               New Member?{" "}
               <Link to="/Signup">
-                <Button>Sign Up</Button>
+                <Button>Sign in</Button>
               </Link>
             </p>
           </form>
         </div>
+        <Stack spacing={2} sx={{ width: "100%" }}>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert
+              onClose={handleClose}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              Signin Successfully!
+            </Alert>
+          </Snackbar>
+        </Stack>
       </Grid>
     </Grid>
   );
