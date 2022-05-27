@@ -1,4 +1,4 @@
-import { get, remove,put } from "./web.request";
+import { get, remove, put } from "./web.request";
 import { API } from "../helper";
 
 //Dashboard
@@ -23,7 +23,8 @@ export const dataHandlerDataDelete = (body, id) => {
   return remove(`${API}crud1/${id}`, body);
 };
 
-//Create Start
-export const dataHandlerDataCreate = (body) => {
-  return put(`${API}crud1`, body);
+
+
+export const dataHandlerDataUpdate = (body, id) => {
+  return put(`${API}crud1/${id}`, body);
 };

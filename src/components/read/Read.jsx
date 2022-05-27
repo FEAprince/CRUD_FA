@@ -20,6 +20,7 @@ export default function Read() {
   const [Data, setData] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [deleteId, setDeleteId] = useState(-1);
+
   const body = {
     id: localStorage.getItem("id"),
   };
@@ -40,6 +41,7 @@ export default function Read() {
   const getDashboardData = async () => {
     const response = await dashboardHandlerData(body);
     setData(response.data);
+    console.log(response);
   };
   const DataDelete = async () => {
     const response = await dataHandlerDataDelete(body, deleteId);
@@ -90,7 +92,7 @@ export default function Read() {
                     <td>{data.email}</td>
                     <td>{data.phoneno}</td>
                     <td>
-                      <Link to="/update">
+                      <Link to={`/update/${data.id}`}>
                         <Button variant="contained" onClick={() => setData()}>
                           Update
                         </Button>

@@ -1,141 +1,121 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { validName } from "../helper";
-import { validEmail } from "../helper";
-import { validPhoneno } from "../helper";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-export default function Update() {
+export default function UserUpdate() {
+  const { id } = useParams();
+  const [firstname, setfirstname] = useState("");
+  const [lastname, setlastname] = useState("");
+  const [email, setemail] = useState("");
+  const [phoneno, setphoneno] = useState("");
   const navigate = useNavigate();
-  const [id, setID] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneno, setPhoneno] = useState("");
-  const [emailErr, setEmailErr] = useState(false);
-  const [fnameErr, setfnameErr] = useState(false);
-  const [lnameErr, setlnameErr] = useState(false);
-  const [phonenoErr, setphonenoErr] = useState(false);
-
-  const validate = () => {
-    let formIsValid = true;
-    if (!validEmail.test(email)) {
-      formIsValid = false;
-      setEmailErr(true);
-    }
-    if (!validName.test(firstname)) {
-      formIsValid = false;
-      setfnameErr(true);
-    }
-    if (!validName.test(lastname)) {
-      formIsValid = false;
-      setlnameErr(true);
-    }
-    if (!validPhoneno.test(phoneno)) {
-      formIsValid = false;
-      setphonenoErr(true);
-    }
-    return formIsValid;
-  };
-
-  const handleSubmit = (e) => {
-    if (validate() !== true) {
-    } else {
-      updateAPIData(e);
-    }
-    e.preventDefault();
-  };
   useEffect(() => {
-    setID(localStorage.getItem("ID"));
-    setFirstname(localStorage.getItem("First Name:"));
-    setLastname(localStorage.getItem("Last Name:"));
-    setEmail(localStorage.getItem("Email:"));
-    setPhoneno(localStorage.getItem("Phone No:"));
-  }, []);
-
-  // const notify = () =>
-  //   toast.success("Data Updated!", {
-  //     theme: "colored",
-  //   });
-
-  const updateAPIData = (event) => {
-    event.preventDefault();
-    axios
-      .put(`https://6273b645345e1821b2200dff.mockapi.io/crud1/${id}`, {
-        firstname,
-        lastname,
-        email,
-        phoneno,
-      })
-      .then(() => {
-        navigate(`/read`);
+    fetch("https://6273b645345e1821b2200dff.mockapi.io/crud1/" + id)
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setfirstname(result.firstname);
+        setlastname(result.lastname);
+        setemail(result.email);
+        setphoneno(result.phoneno);
       });
-  };
-  return (
-    <div className="tableui">
-      <h1>Update Data</h1>
-      <form
-        onSubmit={(e) => {
-          handleSubmit(e);
-        }}
-      >
-        <div className="mb-3">
-          <label className="form-label">First Name:</label>
-          <input
-            className="form-control"
-            placeholder="Enter Your Frist Name"
-            name="fristname"
-            maxLength={15}
-            id="fristnameErr"
-            value={firstname}
-            onChange={(e) => [setFirstname(e.target.value), setfnameErr("")]}
-          />
-          {fnameErr && <p className="errorstyle">Your First Name is invalid</p>}
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Last Name:</label>
-          <input
-            className="form-control"
-            placeholder="Enter Your Last Name"
-            name="lastname"
-            id="lastnameErr"
-            maxLength={15}
-            value={lastname}
-            onChange={(e) => [setLastname(e.target.value), setlnameErr("")]}
-          />
-          {lnameErr && <p className="errorstyle">Your Last Name is invalid</p>}
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Email:</label>
-          <input
-            className="form-control"
-            name="email"
-            placeholder="exmample@etc.com"
-            id="emailErr"
-            maxLength={30}
-            value={email}
-            onChange={(e) => [setEmail(e.target.value), setEmailErr("")]}
-          />
-          {emailErr && <p className="errorstyle">Your email is invalid</p>}
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Phone No:</label>
-          <input
-            className="form-control"
-            placeholder="1234567890"
-            id="phonenoErr"
-            value={phoneno}
-            maxLength={10}
-            onChange={(e) => [setPhoneno(e.target.value), setphonenoErr("")]}
-          />
-          {phonenoErr && <p className="errorstyle">Your Phone No is invalid</p>}
-        </div>
+  }, [id]);
 
-        <button onClick={validate} type="submit" className="btn btn-primary">
-          Update
-        </button>
-      </form>
-      {/* <ToastContainer /> */}
-    </div>
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    var data = {
+      id: id,
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      phoneno: phoneno,
+    };
+    fetch("https://6273b645345e1821b2200dff.mockapi.io/crud1/" + id, {
+      method: "PUT",
+      headers: {
+        Accept: "application/form-data",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+      
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        
+        if (result["status"] === "ok") {
+          window.location.href = "/";
+          
+        } 
+        navigate(`/Read`);
+      });
+      
+     
+  };
+
+  return (
+    <Container className="tableui">
+      <div>
+        <Typography>Data</Typography>
+        <form onSubmit={handleSubmit}>
+          <Grid>
+            <Grid>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                value={firstname}
+                onChange={(e) => setfirstname(e.target.value)}
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                value={lastname}
+                onChange={(e) => setlastname(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="Email"
+                label="Email"
+                value={email}
+                onChange={(e) => setemail(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                value={phoneno}
+                onChange={(e) => setphoneno(e.target.value)}
+              />
+            </Grid>
+          </Grid>
+          <Button type="submit" fullWidth variant="contained" color="primary">
+            Update
+          </Button>
+        </form>
+      </div>
+    </Container>
   );
 }

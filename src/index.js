@@ -64,7 +64,7 @@ root.render(
         }
       />
       <Route
-        path="/Update"
+        path="/update/:id"
         element={
           isLoggedIn ? (
             <>
@@ -76,6 +76,7 @@ root.render(
           )
         }
       />
+      
       <Route
         path="/New"
         element={
