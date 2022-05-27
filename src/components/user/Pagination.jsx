@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export class Pagination extends Component {
   render() {
@@ -20,21 +21,29 @@ export class Pagination extends Component {
       <nav>
         <ul className="pagination justify-content-center">
           <li className="page-item">
-            <a className="page-link" href="/User" onClick={() => prevPage()}>
-              Previous
-            </a>
+            <Link to="/User">
+              <a className="page-link" href="/User" onClick={() => prevPage()}>
+                Previous
+              </a>
+            </Link>
           </li>
           {pageNumbers.map((num) => (
             <li className="page-item" key={num}>
-              <a onClick={() => paginate(num)}  href="/User"className="page-link">
+              <Link
+                to="/User"
+                onClick={() => paginate(num)}
+                className="page-link"
+              >
                 {num}
-              </a>
+              </Link>
             </li>
           ))}
           <li className="page-item">
-            <a className="page-link" href="/User" onClick={() => nextPage()}>
-              Next
-            </a>
+            <Link to="/User">
+              <a className="page-link" href="/User" onClick={() => nextPage()}>
+                Next
+              </a>
+            </Link>
           </li>
         </ul>
       </nav>

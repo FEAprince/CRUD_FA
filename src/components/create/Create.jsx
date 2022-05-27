@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
-
 import axios from "axios";
 import { validName } from "../helper";
 import { validEmail } from "../helper";
@@ -18,7 +15,6 @@ export default function Create() {
   const [fnameErr, setfnameErr] = useState(false);
   const [lnameErr, setlnameErr] = useState(false);
   const [phonenoErr, setphonenoErr] = useState(false);
-
   const validate = () => {
     let formIsValid = true;
     if (!validEmail.test(email)) {
@@ -48,15 +44,11 @@ export default function Create() {
     }
     e.preventDefault();
   };
-
-  // const notify = () =>
-  //   toast.success("Data Submit", {
-  //     theme: "colored",
-  //   });
+  
   const postData = (event) => {
     event.preventDefault();
     axios
-      .post("https://6273b645345e1821b2200dff.mockapi.io/crud1", {
+      .post(`https://6273b645345e1821b2200dff.mockapi.io/crud1`, {
         firstname,
         lastname,
         email,

@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -11,63 +10,50 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CircularProgress from "@mui/material/CircularProgress";
-// import Checkbox from "@mui/material/Checkbox";
+import {
+  dashboardHandlerData,
+  dataHandlerDataDelete,
+} from "../service/auth.service";
 
 export default function Read() {
   document.title = "Data";
-  const [APIData, setAPIData] = useState([]);
+  const [Data, setData] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
+  const [deleteId, setDeleteId] = useState(-1);
+  const body = {
+    id: localStorage.getItem("id"),
+  };
+  const handleClickOpen = (id) => {
+    setDeleteId(id);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setDeleteId(-1);
   };
 
   useEffect(() => {
-    getData();
+    getDashboardData();
   }, []);
 
-  const setData = (data) => {
-    let { id, firstname, lastname, email, phoneno } = data;
-    localStorage.setItem("ID", id);
-    localStorage.setItem("First Name:", firstname);
-    localStorage.setItem("Last Name:", lastname);
-    localStorage.setItem("Email:", email);
-    localStorage.setItem("Phone no:", phoneno);
+  const getDashboardData = async () => {
+    const response = await dashboardHandlerData(body);
+    setData(response.data);
   };
-
-  const getData = () => {
-    axios
-      .get(`https://6273b645345e1821b2200dff.mockapi.io/crud1`)
-      .then((getData) => {
-        setAPIData(getData.data);
-        
-      })
-      .catch((err) => {
-        setAPIData([]);
-      });
+  const DataDelete = async () => {
+    const response = await dataHandlerDataDelete(body, deleteId);
+    setData(response.data);
+    setDeleteId(-1);
+    getDashboardData();
   };
-
-  const onDelete = (id) => {
-    axios
-      .delete(`https://6273b645345e1821b2200dff.mockapi.io/crud1/${id}/`)
-      .then(() => {
-        getData();
-      });
-  };
-
-  var count = Object.keys(APIData).length;
- 
 
   return (
     <div>
       <div>
         <div>
           <div className="text tableui">
-            Total Data <span></span>
-            {count}
+            Total Data{Data.length}
             <div>
               <br />
               <Link className="myb" to="/Create">
@@ -80,14 +66,6 @@ export default function Read() {
 
       <div className="tableui">
         <h1>Data</h1>
-        <Button
-          variant="outlined"
-          startIcon={<DeleteIcon />}
-          onClick={() => onDelete()}
-        >
-          All Delete
-        </Button>
-        <span></span>
 
         <table className="table table-bordered ">
           <thead>
@@ -99,20 +77,11 @@ export default function Read() {
               <th scope="col">Phone No</th>
               <th scope="col">Update</th>
               <th scope="col">Delete</th>
-              {/* <th>
-                <Checkbox
-                  type="checkbox"
-                  className="form-check-input"
-                  // checked={this.state.MasterChecked}
-                  id="mastercheck"
-                  // onChange={(e) => onMasterCheck(e)}
-                />
-              </th> */}
             </tr>
           </thead>
           <tbody>
-            {APIData.length > 0 ? (
-              APIData.map((data, index) => {
+            {Data.length > 0 ? (
+              Data.map((data, index) => {
                 return (
                   <tr key={data.id}>
                     <th scope="row">{index + 1}</th>
@@ -122,10 +91,7 @@ export default function Read() {
                     <td>{data.phoneno}</td>
                     <td>
                       <Link to="/update">
-                        <Button
-                          variant="contained"
-                          onClick={() => setData(data)}
-                        >
+                        <Button variant="contained" onClick={() => setData()}>
                           Update
                         </Button>
                       </Link>
@@ -134,62 +100,40 @@ export default function Read() {
                       <Button
                         variant="outlined"
                         startIcon={<DeleteIcon />}
-                        onClick={handleClickOpen}
+                        onClick={() => handleClickOpen(data.id)}
                       >
                         Delete
                       </Button>
                     </td>
-                    {/* <td>
-                      <Checkbox
-                        type="checkbox"
-                        // checked={user.selected}
-                        className="form-check-input"
-                        id="rowcheck{user.id}"
-                        // onChange={(e) => this.onItemCheck(e, user)}
-                      />
-                    </td> */}
                   </tr>
                 );
               })
             ) : (
-              <td colSpan="10" className="text">
-                <CircularProgress />
-              </td>
+              <CircularProgress colSpan="10" className="text" />
             )}
           </tbody>
         </table>
 
-        {APIData.length > 0 ? (
-          APIData.map((data) => {
-            return (
-              <Dialog
-                key={data.id}
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  {"Delete Data"}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                    Are You Sure For Delete Data?
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose}>No</Button>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Delete Data"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are You Sure For Delete Data?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>No</Button>
 
-                  <Button onClick={() => [onDelete(data.id), handleClose()]}>
-                    Delete
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            );
-          })
-        ) : (
-          <td></td>
-        )}
+            <Button onClick={() => [DataDelete(), handleClose()]}>
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </div>
   );
