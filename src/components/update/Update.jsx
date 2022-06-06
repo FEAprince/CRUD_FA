@@ -63,7 +63,7 @@ export default function UserUpdate() {
         <Typography>Data</Typography>
         <form onSubmit={handleSubmit}>
           <Grid>
-            <Grid>
+            <Grid className="updateui">
               <TextField
                 autoComplete="fname"
                 name="firstName"
@@ -75,9 +75,10 @@ export default function UserUpdate() {
                 value={firstname}
                 onChange={(e) => setfirstname(e.target.value)}
                 autoFocus
+                
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid className="updateui">
               <TextField
                 variant="outlined"
                 required
@@ -88,7 +89,7 @@ export default function UserUpdate() {
                 onChange={(e) => setlastname(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid className="updateui">
               <TextField
                 variant="outlined"
                 required
@@ -99,7 +100,7 @@ export default function UserUpdate() {
                 onChange={(e) => setemail(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid className="updateui">
               <TextField
                 variant="outlined"
                 required
@@ -111,7 +112,7 @@ export default function UserUpdate() {
               />
             </Grid>
           </Grid>
-          <Button type="submit" fullWidth variant="contained" color="primary">
+          <Button  type="submit" fullWidth variant="contained" color="primary">
             Update
           </Button>
         </form>
@@ -119,3 +120,4 @@ export default function UserUpdate() {
     </Container>
   );
 }
+
