@@ -10,6 +10,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CircularProgress from "@mui/material/CircularProgress";
+import { suceessMessage} from "../helper";
 import {
   dashboardHandlerData,
   dataHandlerDataDelete,
@@ -41,13 +42,14 @@ export default function Read() {
   const getDashboardData = async () => {
     const response = await dashboardHandlerData(body);
     setData(response.data);
-    console.log(response);
+    
   };
   const DataDelete = async () => {
     const response = await dataHandlerDataDelete(body, deleteId);
     setData(response.data);
     setDeleteId(-1);
     getDashboardData();
+    suceessMessage("Data Delete Successfully!");
   };
 
   return (

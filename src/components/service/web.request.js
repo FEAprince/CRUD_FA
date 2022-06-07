@@ -37,7 +37,7 @@ export const put = async (url, data) => {
 
 export const post = async (url, data) => {
   const response = await axios
-    .preventDefault()
+    
     .post(url, data)
     .then((res) => {
       return res;

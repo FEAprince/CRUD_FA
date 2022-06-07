@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import axios from "axios";
-import { validName } from "../helper";
+import { suceessMessage, validName } from "../helper";
 import { validEmail } from "../helper";
 import { validPhoneno } from "../helper";
+import { createHandlerData } from "../service/auth.service";
 
 export default function Create() {
   const navigate = useNavigate();
@@ -15,6 +15,7 @@ export default function Create() {
   const [fnameErr, setfnameErr] = useState(false);
   const [lnameErr, setlnameErr] = useState(false);
   const [phonenoErr, setphonenoErr] = useState(false);
+
   const validate = () => {
     let formIsValid = true;
     if (!validEmail.test(email)) {
@@ -41,22 +42,25 @@ export default function Create() {
     if (validate() !== true) {
     } else {
       postData(e);
+      suceessMessage("Data Created Successfully!");
     }
     e.preventDefault();
   };
-  
-  const postData = (event) => {
+
+  const postData = async (event) => {
     event.preventDefault();
-    axios
-      .post(`https://6273b645345e1821b2200dff.mockapi.io/crud1`, {
-        firstname,
-        lastname,
-        email,
-        phoneno,
-      })
-      .then(() => {
-        navigate(`/Read`);
-      });
+    const body = {
+      firstname,
+      lastname,
+      email,
+      phoneno,
+    };
+    const response = await createHandlerData(body);
+    // console.log("---<<<", response);
+    // eslint-disable-next-line
+    if (response.status == "201") {
+      navigate(`/Read`);
+    }
   };
 
   return (
@@ -81,7 +85,7 @@ export default function Create() {
               id="fristnameErr"
               value={firstname}
               onChange={(e) => [setFirstname(e.target.value), setfnameErr("")]}
-            />{" "}
+            />
             {fnameErr && <p className="errorstyle">{fnameErr}</p>}
           </div>
           <div className="mb-3">
@@ -133,7 +137,17 @@ export default function Create() {
         </form>
       </div>
 
-      {/* <ToastContainer /> */}
+      {/* <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      /> */}
     </div>
   );
 }

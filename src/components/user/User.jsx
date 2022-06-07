@@ -22,17 +22,20 @@ export class App extends Component {
       this.setState({ loading: false });
     };
 
-    getPosts(); // eslint-disable-next-line
+
+
+
+    getPosts(); 
   }
 
   render() {
-    const { currentPage, postsPerPage, posts, loading } = this.state; // eslint-disable-next-line
+    const { currentPage, postsPerPage, posts, loading } = this.state; 
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-    const paginate = (pageNum) => this.setState({ currentPage: pageNum }); // eslint-disable-next-line
+    const paginate = (pageNum) => this.setState({ currentPage: pageNum }); 
 
     const nextPage = () => this.setState({ currentPage: currentPage + 1 });
 

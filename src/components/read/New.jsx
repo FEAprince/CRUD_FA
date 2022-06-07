@@ -7,7 +7,6 @@ export default function DataGrid1() {
   useEffect(() => {
     fetch("https://6273b645345e1821b2200dff.mockapi.io/crud1")
       .then((data) => data.json())
-
       .then((data) => setTableData(data));
   }, []);
 

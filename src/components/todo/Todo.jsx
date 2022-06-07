@@ -1,62 +1,47 @@
-import axios from "axios";
 import React from "react";
+import { useNavigate } from "react-router";
 import { BsFillArchiveFill } from "react-icons/bs";
-import Draggable from 'react-draggable';
-import { Link } from "react-router-dom";
+import Draggable from "react-draggable";
+import {
+  todoHandlerpostData,
+  todoHandlerDataDelete,
+  todoHandlergetData,
+} from "../service/auth.service";
 import { useEffect, useState } from "react";
+
 export default function Todo() {
+  const navigate = useNavigate();
   const [todo, setTodo] = useState("");
-  
   const [APIData, setAPIData] = useState([]);
   useEffect(() => {
     getData();
   }, []);
+  const body = {
+    id: localStorage.getItem("id"),
+  };
 
-  const postData = (event) => {
+  const postData = async (event) => {
     event.preventDefault();
-    axios.post("https://6273b645345e1821b2200dff.mockapi.io/todo", {
+    const body = {
       todo,
-    })
-    .then(() => {
-      getData();
-    });
-  };
-  const onDelete = (id) => {
-    axios
-      .delete(`https://6273b645345e1821b2200dff.mockapi.io/todo/${id}/`)
-      .then(() => {
-        getData();
-      }).then(() => {
-        getData();
-      });
-      
+    };
+    const response = await todoHandlerpostData(body);
+    console.log(response)
+    getData();
+    navigate(`/todo`);
   };
 
-  const getData = () => {
-    axios
-      .get(`https://6273b645345e1821b2200dff.mockapi.io/todo`)
-      .then((getData) => {
-        setAPIData(getData.data);
-        
-      })
-      .catch((err) => {
-        setAPIData([]);
-      })
-      ;
+  const onDelete = async (id) => {
+    const response = await todoHandlerDataDelete(body, id);
+    setAPIData(response.data);
+    getData();
+  };
+
+  const getData = async () => {
+    const response = await todoHandlergetData(body);
+    setAPIData(response.data);
   };
   var count = Object.keys(APIData).length;
- 
-
-
-  
-
-
-  // const setData = (data) => {
-  //   let { id, todo } = data;
-  //   localStorage.setItem("id", id);
-  //   localStorage.setItem("Todo", todo);
-
-  // };
 
   return (
     <div className="todomain container tableui">
@@ -68,13 +53,11 @@ export default function Todo() {
           placeholder="Add Todo"
           onChange={(e) => setTodo(e.target.value)}
         ></input>
-         <Link type="submit" className="btn mybutton" to="/todo">
+        <button type="submit" className="btn mybutton" to="/todo">
           Add Todo
-        </Link>
+        </button>
       </form>
-      <h3 className="tablecard tableui">
-        Total Todo {count}
-      </h3>
+      <h3 className="tablecard tableui">Total Todo {count}</h3>
       <div className="row">
         <div className="col todo ">
           <div>
@@ -84,12 +67,13 @@ export default function Todo() {
               APIData.map((data) => {
                 return (
                   <Draggable key={data.id}>
-                  <div className="draggable" key={data.id}>
-                    {/* <td>{data.id}</td> */}
-                    {data.todo}
-                    <br />
-                     <BsFillArchiveFill onClick={() => onDelete(data.id)} />
-                  </div></Draggable>
+                    <div className="draggable" key={data.id}>
+                      {/* <td>{data.id}</td> */}
+                      {data.todo}
+                      <br />
+                      <BsFillArchiveFill onClick={() => onDelete(data.id)} />
+                    </div>
+                  </Draggable>
                 );
               })
             ) : (

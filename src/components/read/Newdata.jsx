@@ -4,21 +4,26 @@ import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-
+import { newdataHandlergetData } from "../service/auth.service";
 const muiCache = createCache({
   key: "mui-datatables",
   prepend: true,
 });
-
+const body = {
+  id: localStorage.getItem("id"),
+};
 export default function App() {
   const [data, setdata] = React.useState([]);
 
   useEffect(() => {
-    fetch("https://6273b645345e1821b2200dff.mockapi.io/crud1")
-      .then((data) => data.json())
-
-      .then((data) => setdata(data));
+    getDataUser();
   }, []);
+
+  const getDataUser = async () => {
+    const response = await newdataHandlergetData(body);
+    setdata(response.data);
+  };
+
   const columns = [
     { name: "id", label: "ID" },
     { name: "firstname", label: "Firstname", width: 150 },

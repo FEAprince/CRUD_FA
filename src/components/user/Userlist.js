@@ -1,49 +1,47 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import moment from "moment";
+import {
+  userHandlerpostData,
+  userHandlergetData,
+  userHandlerDataDelete,
+} from "../service/auth.service";
+
 function UserList(props) {
   const [userData, setUserData] = useState(null);
   const [APIDataUser, setAPIDataUser] = useState([]);
   useEffect(() => {
     getDataUser();
   }, []);
+  const body = {
+    id: localStorage.getItem("id"),
+  }; 
 
-  const onDelete = (id) => {
-    axios
-      .delete(`https://6273b645345e1821b2200dff.mockapi.io/login/${id}/`)
-      .then(() => {
-        getPosts();
-      });
+  const onDelete = async (id) => {
+    const response = await userHandlerDataDelete(body, id);
+    setUserData(response.data);
+    getPosts();
   };
 
   useEffect(() => {
     setUserData(props.posts);
   }, [props]);
 
+
   const getPosts = async () => {
-    const results = await axios.get(
-      "https://6273b645345e1821b2200dff.mockapi.io/login"
-    );
-    
-    setUserData(results.data);
+    const response = await userHandlerpostData(body);
+    setUserData(response.data);
   };
+
   useEffect(() => {
     getDataUser();
   }, []);
 
-  const getDataUser = () => {
-    axios
-      .get(`https://6273b645345e1821b2200dff.mockapi.io/login`)
-      .then((getDataUser) => {
-        setAPIDataUser(getDataUser.data);
-        
-      })
-      .catch((err) => {
-        setAPIDataUser([]);
-      });
+  const getDataUser = async () => {
+    const response = await userHandlergetData(body);
+    setAPIDataUser(response.data);
   };
 
   var countUser = Object.keys(APIDataUser).length;
-
 
   if (props.loading) {
     return <div className="spinner-grow m" role="status" />;
@@ -62,12 +60,11 @@ function UserList(props) {
             <th scope="col">Profile Id</th>
             <th scope="col">Profile Photo</th>
             <th scope="col">First Name</th>
-
             <th scope="col">Cration Date</th>
             <th scope="col">Delete</th>
           </tr>
         </thead>
-        
+
         <tbody>
           {userData &&
             userData.map((post, index) => (
@@ -80,7 +77,8 @@ function UserList(props) {
 
                 <td>{post.name}</td>
 
-                <td>{post.createdAt}</td>
+                <td>{moment(post.createdAt).format("DD-MM-YY h:mm:ss A")},</td>
+
                 <td>
                   <button
                     className="btn btn-danger"

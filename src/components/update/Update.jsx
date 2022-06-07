@@ -6,6 +6,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router";
+import {
+  updateHandlerData,
+  updateHandlerupdateData,
+} from "../service/auth.service";
 
 export default function UserUpdate() {
   const { id } = useParams();
@@ -13,56 +17,73 @@ export default function UserUpdate() {
   const [lastname, setlastname] = useState("");
   const [email, setemail] = useState("");
   const [phoneno, setphoneno] = useState("");
+
+  const body = {
+    id: localStorage.getItem("id"),
+  };
+  const getDashboardData = async () => {
+    const response = await updateHandlerData(body, id);
+    console.log(response.data);
+    setfirstname(response.data.firstname);
+    setlastname(response.data.lastname);
+    setemail(response.data.email);
+    setphoneno(response.data.phoneno);
+  };
   const navigate = useNavigate();
+
   useEffect(() => {
-    fetch("https://6273b645345e1821b2200dff.mockapi.io/crud1/" + id)
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        setfirstname(result.firstname);
-        setlastname(result.lastname);
-        setemail(result.email);
-        setphoneno(result.phoneno);
-      });
+    getDashboardData();
   }, [id]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    var data = {
+    console.log("id", id);
+    const body = {
       id: id,
       firstname: firstname,
       lastname: lastname,
       email: email,
       phoneno: phoneno,
     };
-    fetch("https://6273b645345e1821b2200dff.mockapi.io/crud1/" + id, {
-      method: "PUT",
-      headers: {
-        Accept: "application/form-data",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-      
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        
-        if (result["status"] === "ok") {
-          window.location.href = "/";
-          
-        } 
-        navigate(`/Read`);
-      });
-      
-     
+    console.log("body", body);
+    const response = await updateHandlerupdateData(id, body);
+
+    console.log(response.id);
+    navigate(`/Read`);
   };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   var data = {
+  //     id: id,
+  //     firstname: firstname,
+  //     lastname: lastname,
+  //     email: email,
+  //     phoneno: phoneno,
+  //   };
+  //   fetch("https://6273b645345e1821b2200dff.mockapi.io/crud1/" + id, {
+  //     method: "PUT",
+  //     headers: {
+  //       Accept: "application/form-data",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       if (result["status"] === "ok") {
+  //         window.location.href = "/";
+  //       }
+  //       navigate(`/Read`);
+  //     });
+  // };
 
   return (
     <Container className="tableui">
       <div>
         <Typography>Data</Typography>
         <form onSubmit={handleSubmit}>
-          <Grid>
+          <Grid className="updateui">
             <Grid className="updateui">
               <TextField
                 autoComplete="fname"
@@ -75,7 +96,6 @@ export default function UserUpdate() {
                 value={firstname}
                 onChange={(e) => setfirstname(e.target.value)}
                 autoFocus
-                
               />
             </Grid>
             <Grid className="updateui">
@@ -112,7 +132,7 @@ export default function UserUpdate() {
               />
             </Grid>
           </Grid>
-          <Button  type="submit" fullWidth variant="contained" color="primary">
+          <Button type="submit" fullWidth variant="contained" color="primary">
             Update
           </Button>
         </form>
@@ -120,4 +140,3 @@ export default function UserUpdate() {
     </Container>
   );
 }
-
