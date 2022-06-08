@@ -10,7 +10,7 @@ export const API = new URL("https://6273b645345e1821b2200dff.mockapi.io/");
 
 export const suceessMessage = (Message) => {
   toast.success(Message, {
-    position: "bottom-left",
+    position: "bottom-right",
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,

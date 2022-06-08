@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router";
+import { suceessMessage} from "../helper";
 import {
   updateHandlerData,
   updateHandlerupdateData,
@@ -47,7 +48,7 @@ export default function UserUpdate() {
     };
     console.log("body", body);
     const response = await updateHandlerupdateData(id, body);
-
+    suceessMessage("Data Update Successfully!");
     console.log(response.id);
     navigate(`/Read`);
   };

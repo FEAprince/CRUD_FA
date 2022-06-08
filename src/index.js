@@ -14,7 +14,7 @@ import Signup from "./components/login/Signup";
 import File from "./components/file/File";
 import User from "./components/user/User";
 import Sigin from "./components/LoginAPI/Sigin";
-import {ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import React from "react";
@@ -78,7 +78,7 @@ root.render(
           )
         }
       />
-      
+
       <Route
         path="/New"
         element={
@@ -154,6 +154,16 @@ root.render(
       <Route path="/Signup" element={<Signup />} />
       <Route path="/Sigin" element={<Sigin />} />
     </Routes>
-    <ToastContainer />
+    <ToastContainer
+      position="bottom-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    />
   </BrowserRouter>
 );

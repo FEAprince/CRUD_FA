@@ -8,6 +8,7 @@ import {
   todoHandlergetData,
 } from "../service/auth.service";
 import { useEffect, useState } from "react";
+import { suceessMessage } from "../helper";
 
 export default function Todo() {
   const navigate = useNavigate();
@@ -26,14 +27,16 @@ export default function Todo() {
       todo,
     };
     const response = await todoHandlerpostData(body);
-    console.log(response)
+    console.log(response);
     getData();
+    suceessMessage("Todo Add Successfully!");
     navigate(`/todo`);
   };
 
   const onDelete = async (id) => {
     const response = await todoHandlerDataDelete(body, id);
     setAPIData(response.data);
+    suceessMessage("Todo Delete Successfully!");
     getData();
   };
 

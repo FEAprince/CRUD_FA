@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FilePond, registerPlugin } from "react-filepond";
 import "filepond/dist/filepond.min.css";
-
+import { suceessMessage} from "../helper";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
@@ -79,8 +79,10 @@ function App() {
   function handleUpload(e) {
     if (typeof btn === "object" && btn !== null) {
       const { current } = btn;
+      
       if (typeof current === "object" && current !== null) {
         current.click();
+        
       }
     }
   }
@@ -88,6 +90,7 @@ function App() {
   function handleChange(e) {
     e.preventDefault();
     setList([...list, URL.createObjectURL(e.target.files[0])]);
+    suceessMessage("File Upload Successfully!");
   }
 
   function handleDragStart(e, i) {

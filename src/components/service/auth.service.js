@@ -58,11 +58,11 @@ export const todoHandlerDataDelete = (body, id) => {
 export const userHandlergetData = (body) => {
   return get(`${API}login`, body);
 };
-export const userHandlerpostData = (body) => {
-  return get(`${API}todo`, body);
-};
+// export const userHandlerpostData = (body) => {
+//   return get(`${API}login`, body);
+// };
 export const userHandlerDataDelete = (body, id) => {
-  return remove(`${API}todo/${id}`, body);
+  return remove(`${API}login/${id}`, body);
 };
 
 // New Data Api Calling
