@@ -12,7 +12,7 @@ const muiCache = createCache({
 const body = {
   id: localStorage.getItem("id"),
 };
-export default function App() {
+export default function Newdata() {
   const [data, setdata] = React.useState([]);
 
   useEffect(() => {

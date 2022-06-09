@@ -91,6 +91,7 @@ export default function User() {
         containerClassName={"pagination"}
         subContainerClassName={"pages pagination"}
         activeClassName={"active"}
+        
       />
     </div>
   );

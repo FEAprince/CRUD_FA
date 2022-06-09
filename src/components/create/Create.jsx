@@ -56,7 +56,6 @@ export default function Create() {
       phoneno,
     };
     const response = await createHandlerData(body);
-    // console.log("---<<<", response);
     // eslint-disable-next-line
     if (response.status == "201") {
       navigate(`/Read`);
@@ -135,19 +134,7 @@ export default function Create() {
             Submit
           </button>
         </form>
-      </div>
-
-      {/* <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      /> */}
+      </div>      
     </div>
   );
 }

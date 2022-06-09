@@ -1,10 +1,8 @@
 import React from "react";
-
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
-
 import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar() {
@@ -71,7 +69,7 @@ export default function Navbar() {
             </li>
             <li className="nav-item">
               <NavLink
-                to="/dragcom"
+                to="/Dragcom"
                 className={({ isActive }) =>
                   isActive ? "link-active" : "link"
                 }
@@ -81,7 +79,7 @@ export default function Navbar() {
             </li>
             <li className="nav-item">
               <NavLink
-                to="/todo"
+                to="/Todo"
                 className={({ isActive }) =>
                   isActive ? "link-active" : "link"
                 }
