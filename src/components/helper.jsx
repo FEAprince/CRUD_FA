@@ -11,7 +11,7 @@ export const API = new URL("https://6273b645345e1821b2200dff.mockapi.io/");
 export const suceessMessage = (Message) => {
   toast.success(Message, {
     position: "bottom-right",
-    autoClose: 5000,
+    autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,

@@ -15,10 +15,10 @@ export default function User() {
   const body = {
     id: localStorage.getItem("id"),
   };
-  console.log(pageCount);
-  // var countUser = Object.keys(data).length;
+  
+
   const onDelete = async (id) => {
-    console.log("Your Deleted Id", id); // eslint-disable-next-line
+    // eslint-disable-next-line
     const response = await userHandlerDataDelete(body, id);
     suceessMessage("User Delete Successfully!");
     getData();
@@ -91,7 +91,6 @@ export default function User() {
         containerClassName={"pagination"}
         subContainerClassName={"pages pagination"}
         activeClassName={"active"}
-        
       />
     </div>
   );

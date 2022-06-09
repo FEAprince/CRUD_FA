@@ -141,7 +141,7 @@ function App() {
           <div className="form-row">
             {list.map((e, i) => {
               return (
-                <div className="col-4">
+                <div className="col-4" key={i}>
                   <Droppable
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}

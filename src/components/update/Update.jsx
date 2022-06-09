@@ -12,7 +12,7 @@ import {
   updateHandlerupdateData,
 } from "../service/auth.service";
 
-export default function UserUpdate() {
+export default function Update() {
   const { id } = useParams();
   const [firstname, setfirstname] = useState("");
   const [lastname, setlastname] = useState("");

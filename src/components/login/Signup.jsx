@@ -18,7 +18,7 @@ import Snackbar from "@mui/material/Snackbar";
 import InputLabel from "@mui/material/InputLabel";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
-export default function Login() {
+export default function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [usernameErr, setUsernameErr] = useState(false);
