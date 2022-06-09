@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 
-export default function DataGrid1() {
+export default function New() {
   const [tableData, setTableData] = React.useState([]);
 
   useEffect(() => {

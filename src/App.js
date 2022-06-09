@@ -4,7 +4,7 @@ import Create from "./components/create/Create";
 import Update from "./components/update/Update";
 import Dragcom from "./components/dragcom/Dragcom";
 import Todo from "./components/todo/Todo";
-import New from "./components/read/New";
+// import New from "./components/read/New";
 import Newdata from "./components/read/Newdata";
 import Navbar from "./components/Navbar/Navbar";
 import Signup from "./components/login/Signup";
@@ -75,7 +75,7 @@ export default function App() {
           }
         />
 
-        <Route
+        {/* <Route
           path="/New"
           element={
             isLoggedIn ? (
@@ -87,7 +87,7 @@ export default function App() {
               <Sigin />
             )
           }
-        />
+        /> */}
         <Route
           path="/Dragcom"
           element={

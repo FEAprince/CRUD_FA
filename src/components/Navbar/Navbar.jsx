@@ -98,7 +98,7 @@ export default function Navbar() {
               </NavLink>
             </li>
 
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink
                 to="/New"
                 className={({ isActive }) =>
@@ -107,7 +107,7 @@ export default function Navbar() {
               >
                 New
               </NavLink>
-            </li>
+            </li> */}
             <li className="nav-item">
               <NavLink
                 to="/Newdata"
