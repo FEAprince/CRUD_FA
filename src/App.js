@@ -14,7 +14,7 @@ import Sigin from "./components/LoginAPI/Sigin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from "react";
-import "../src/App.css"
+import "../src/App.css";
 import Dashboard from "./components/dashboard/Dashboard";
 var isLoggedIn = localStorage.getItem("accessToken");
 export default function App() {
@@ -151,15 +151,15 @@ export default function App() {
         <Route path="/Sigin" element={<Sigin />} />
       </Routes>
       <ToastContainer
-        position="bottom-right"
-        
+        position="top-center"
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
         draggable
-        pauseOnHover
+        pauseOnHover={false}
       />
     </BrowserRouter>
   );

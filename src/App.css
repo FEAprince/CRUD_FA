@@ -32,8 +32,6 @@
   padding: 24px;
   border-top-color: rgb(0, 0, 0);
   margin-top: 2%;
-  
-  
 
   background-color: rgb(215, 243, 250);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
@@ -122,9 +120,8 @@
   background-color: rgb(91, 31, 160);
   font-weight: 600;
   border-radius: 8px;
-  padding: 5%;
-  margin: 5%;
-
+  padding: 2%;
+  margin: 2%;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   color: white;
@@ -191,7 +188,9 @@ a:link {
   margin-bottom: 25%;
 }
 .errorstyle {
-  color: hsl(9, 100%, 50%);
+  color: hsl(0, 0%, 0%);
+  background-color: #f38787;
+  border-radius: 4px;
 }
 .myb {
   border-radius: 4px;
@@ -271,9 +270,8 @@ a:link {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-.updateui{
+.updateui {
   margin: 15px;
-  
 }
 .pagination {
   margin: 15px auto;
@@ -281,25 +279,44 @@ a:link {
   list-style: none;
   outline: none;
 }
-.pagination > .active > a{
-  background-color: #000000 ;
-  border-color: #000000 ;
+.pagination > .active > a {
+  background-color: #000000;
+  border-color: #000000;
   color: #fff;
 }
-.pagination > li > a{  
+.pagination > li > a {
   padding: 5px 10px;
   outline: none;
   cursor: pointer;
   border-radius: 4px;
 }
-.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
-  background-color: #000000 ;
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  background-color: #000000;
   border-color: #000000;
-  outline: none ;
+  outline: none;
 }
-.pagination > li > a, .pagination > li > span{
-  color: #000000
+.pagination > li > a,
+.pagination > li > span {
+  color: #000000;
 }
-.pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
-  border-radius: unset
+.pagination > li:first-child > a,
+.pagination > li:first-child > span,
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  border-radius: unset;
+}
+.todoui {
+  background: rgb(205, 206, 255);
+  color: rgb(0, 0, 0);
+  padding: 15px;
+  margin-top: 5px;
+  margin-bottom: 5%;
+  border-radius: 5px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }

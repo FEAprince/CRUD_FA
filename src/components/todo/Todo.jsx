@@ -1,7 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router";
-import { BsFillArchiveFill } from "react-icons/bs";
+import { validTodo } from "../helper";
 import Draggable from "react-draggable";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   todoHandlerpostData,
   todoHandlerDataDelete,
@@ -11,9 +13,10 @@ import { useEffect, useState } from "react";
 import { suceessMessage } from "../helper";
 
 export default function Todo() {
-  const navigate = useNavigate();
+  const [todoErr, settodoErr] = useState(false);
   const [todo, setTodo] = useState("");
   const [APIData, setAPIData] = useState([]);
+  const [disableButton, setDisableButton] = useState(false);
   useEffect(() => {
     getData();
   }, []);
@@ -21,22 +24,38 @@ export default function Todo() {
     id: localStorage.getItem("id"),
   };
 
+  const validate = () => {
+    let formIsValid = true;
+    if (!validTodo.test(todo)) {
+      formIsValid = false;
+      settodoErr("Enter Valid Todo!");
+    }
+    return formIsValid;
+  };
+
   const postData = async (event) => {
     event.preventDefault();
-    const body = {
-      todo,
-    };
-    const response = await todoHandlerpostData(body);
-    console.log(response);
-    getData();
-    suceessMessage("Todo Add Successfully!");
-    navigate(`/todo`);
+    event.target.reset();
+    setDisableButton(true);
+    if (validate() !== true) {
+    } else {
+      const body = {
+        todo,
+      };
+      const response = await todoHandlerpostData(body);
+      console.log(response);
+      setDisableButton(false);
+      getData();
+      suceessMessage("Todo Add Successfully!");
+    }
   };
 
   const onDelete = async (id) => {
     const response = await todoHandlerDataDelete(body, id);
     setAPIData(response.data);
-    suceessMessage("Todo Delete Successfully!");
+    if (response) {
+      suceessMessage("Todo Delete Successfully!");
+    }
     getData();
   };
 
@@ -54,9 +73,13 @@ export default function Todo() {
           className="form-control form-control-lg myinput"
           type="text"
           placeholder="Add Todo"
-          onChange={(e) => setTodo(e.target.value)}
+          onChange={(e) => [setTodo(e.target.value), settodoErr("")]}
         ></input>
-        <button type="submit" className="btn mybutton" to="/todo">
+        {todoErr && <p className="errorstyle">{todoErr}</p>}
+        <button
+          type="submit"
+          className={disableButton ? "btn mybutton disabled" : "btn mybutton"}
+        >
           Add Todo
         </button>
       </form>
@@ -67,18 +90,32 @@ export default function Todo() {
             <h4 className="todocard">Todo List</h4>
 
             {APIData.length > 0 ? (
-              APIData.map((data) => {
-                return (
-                  <Draggable key={data.id}>
-                    <div className="draggable" key={data.id}>
-                      {/* <td>{data.id}</td> */}
-                      {data.todo}
-                      <br />
-                      <BsFillArchiveFill onClick={() => onDelete(data.id)} />
-                    </div>
-                  </Draggable>
-                );
-              })
+              APIData.slice(0)
+                .reverse()
+                .map((data) => {
+                  return (
+                    <Draggable key={data.id}>
+                      <Box
+                        className="todoui"
+                        sx={{
+                          display: "grid",
+                          gridTemplateColumns: "repeat(2, 1fr)",
+                        }}
+                      >
+                        <div>{data.todo}</div>
+                        <div>
+                          <Button
+                            label="Delete Todo"
+                            onClick={() => onDelete(data.id)}
+                            startIcon={<DeleteIcon />}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      </Box>
+                    </Draggable>
+                  );
+                })
             ) : (
               <div className="text">Todo Not Found!</div>
             )}
