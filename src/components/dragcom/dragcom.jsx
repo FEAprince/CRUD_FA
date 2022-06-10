@@ -1,82 +1,78 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import Board, { moveCard } from "@lourenci/react-kanban";
+import { useEffect } from "react";
 
-export default class Dragcom extends Component {
-  state = {
-    tasks: [
-      { name: "Prince", category: "todo" },
-      { name: "Akabari", category: "todo" },
-      { name: "123", category: "todo" },
-    ],
+import { todoHandlergetData } from "../service/auth.service";
+const board = {
+  columns: [
+    {
+      id: 1,
+      title: "Todo",
+      cards: [],
+    },
+    {
+      id: 2,
+      title: "Process",
+      cards: [],
+    },
+    {
+      id: 3,
+      title: "Completed",
+      cards: [],
+    },
+  ],
+};
+console.log(board);
+// const body = {
+//   id: localStorage.getItem("id"),
+// };
+// const getData = async () => {
+//   const response = await todoHandlergetData(body);
+
+//   console.log(response.data);
+// };
+// useEffect(() => {
+//   getData();
+// }, []);
+
+function ControlledBoard() {
+  const [controlledBoard, setBoard] = useState(board);
+  const body = {
+    id: localStorage.getItem("id"),
   };
+  const getData = async () => {
+    const response = await todoHandlergetData(body);
+    if (response.data.length > 0) {
+      let updated = controlledBoard;
+      updated.columns[0].cards = response.data;
+      setBoard(updated);
 
-  onDragOver = (e) => {
-    e.preventDefault();
+      console.log(response.data);
+    }
   };
+  useEffect(() => {
+    getData();
+  });
 
-  onDrop = (e, cat) => {
-    let id = e.dataTransfer.getData("id");
-
-    let tasks = this.state.tasks.filter((task) => {
-      if (task.name === id) {
-        task.category = cat;
-      }
-      return task;
-    });
-
-    this.setState({
-      ...this.state,
-      tasks,
-    });
-  };
-
-  onDragStart = (e, id) => {
-    e.dataTransfer.setData("id", id);
-  };
-
-  render() {
-    var tasks = {
-      todo: [],
-      done: [],
-    };
-
-    this.state.tasks.forEach((t) => {
-      tasks[t.category].push(
-        <div
-          key={t.name}
-          onDragStart={(e) => this.onDragStart(e, t.name)}
-          draggable
-          className="draggable"
-        >
-          {t.name}
-        </div>
-      );
-    });
-
-    return (
-      <div className="todomain container tableui">
-        <h2>To-Do</h2>
-
-        <div className="row ">
-          <div
-            className="todo col-sm"
-            onDragOver={(e) => this.onDragOver(e)}
-            onDrop={(e) => {
-              this.onDrop(e, "todo");
-            }}
-          >
-            <h4 className="todocard">Todo List</h4>
-            {tasks.todo}
-          </div>
-          <div
-            className="droppable col-sm"
-            onDrop={(e) => this.onDrop(e, "done")}
-            onDragOver={(e) => this.onDragOver(e)}
-          >
-            <h4 className="todocard">Todo Completed</h4>
-            {tasks.done}
-          </div>
-        </div>
-      </div>
-    );
+  function handleCardMove(_card, source, destination) {
+    const updatedBoard = moveCard(controlledBoard, source, destination);
+    console.log(updatedBoard);
+    setBoard(updatedBoard);
   }
+
+  return (
+    <Board onCardDragEnd={handleCardMove} disableColumnDrag>
+      {controlledBoard}
+      
+    </Board>
+  );
+}
+
+export default function Dragcom() {
+  return (
+    <div className="tableui">
+      <ControlledBoard />
+    
+    </div>
+  );
 }

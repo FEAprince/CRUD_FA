@@ -1,9 +1,12 @@
 import React from "react";
 import { validTodo } from "../helper";
-import Draggable from "react-draggable";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
+import LoadingButton from "@mui/lab/LoadingButton";
+import AddIcon from "@mui/icons-material/Add";
+import SaveIcon from "@mui/icons-material/Save";
+
 import {
   todoHandlerpostData,
   todoHandlerDataDelete,
@@ -16,7 +19,8 @@ export default function Todo() {
   const [todoErr, settodoErr] = useState(false);
   const [todo, setTodo] = useState("");
   const [APIData, setAPIData] = useState([]);
-  const [disableButton, setDisableButton] = useState(false);
+  // const [disableButton, setDisableButton] = useState(false);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     getData();
   }, []);
@@ -36,7 +40,8 @@ export default function Todo() {
   const postData = async (event) => {
     event.preventDefault();
     event.target.reset();
-    setDisableButton(true);
+    // setDisableButton(true);
+    setLoading(true);
     if (validate() !== true) {
     } else {
       const body = {
@@ -48,7 +53,8 @@ export default function Todo() {
       getData();
       suceessMessage("Todo Add Successfully!");
     }
-    setDisableButton(false);
+    // setDisableButton(false);
+    setLoading(false);
   };
 
   const onDelete = async (id) => {
@@ -77,14 +83,37 @@ export default function Todo() {
           onChange={(e) => [setTodo(e.target.value), settodoErr("")]}
         ></input>
         {todoErr && <p className="errorstyle">{todoErr}</p>}
-        <button
+        {/* <button
           type="submit"
           className={disableButton ? "btn mybutton disabled" : "btn mybutton"}
         >
           Add Todo
-        </button>
+        </button> */}
+        <br></br>
+        <LoadingButton
+          size="small"
+          type="submit"
+          loading={loading}
+          endIcon={<AddIcon />}
+          loadingPosition="end"
+          variant="contained"
+        >
+          <span></span>
+          Add Todo
+        </LoadingButton>
       </form>
       <h3 className="tablecard tableui">Total Todo {count}</h3>
+      <LoadingButton
+        size="small"
+        type="submit"
+        loading={loading}
+        endIcon={<SaveIcon />}
+        loadingPosition="end"
+        variant="contained"
+      >
+        <span></span>
+        Save
+      </LoadingButton>
       <div className="row">
         <div className="col todo ">
           <div>
@@ -95,7 +124,7 @@ export default function Todo() {
                 .reverse()
                 .map((data) => {
                   return (
-                    <Draggable key={data.id}>
+                    <div key={data.id}>
                       <Box
                         className="todoui"
                         sx={{
@@ -114,7 +143,8 @@ export default function Todo() {
                           </Button>
                         </div>
                       </Box>
-                    </Draggable>
+                      {/* </Draggable> */}
+                    </div>
                   );
                 })
             ) : (
@@ -122,6 +152,7 @@ export default function Todo() {
             )}
           </div>
         </div>
+
         <div className="col todo">
           <h4 className="todocard">Todo Completed</h4>
         </div>
