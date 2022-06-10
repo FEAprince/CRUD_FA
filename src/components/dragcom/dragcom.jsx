@@ -30,7 +30,6 @@ export default class Dragcom extends Component {
   };
 
   onDragStart = (e, id) => {
-    
     e.dataTransfer.setData("id", id);
   };
 
@@ -56,7 +55,7 @@ export default class Dragcom extends Component {
     return (
       <div className="todomain container tableui">
         <h2>To-Do</h2>
-        
+
         <div className="row ">
           <div
             className="todo col-sm"

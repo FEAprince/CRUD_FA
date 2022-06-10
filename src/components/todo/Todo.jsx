@@ -44,10 +44,11 @@ export default function Todo() {
       };
       const response = await todoHandlerpostData(body);
       console.log(response);
-      setDisableButton(false);
+
       getData();
       suceessMessage("Todo Add Successfully!");
     }
+    setDisableButton(false);
   };
 
   const onDelete = async (id) => {
