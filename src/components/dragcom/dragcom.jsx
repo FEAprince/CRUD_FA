@@ -22,7 +22,7 @@ const board = {
     },
   ],
 };
-console.log(board);
+// console.log(board);
 // const body = {
 //   id: localStorage.getItem("id"),
 // };
@@ -46,8 +46,7 @@ function ControlledBoard() {
       let updated = controlledBoard;
       updated.columns[0].cards = response.data;
       setBoard(updated);
-
-      console.log(response.data);
+      // console.log(response.data);
     }
   };
   useEffect(() => {
@@ -56,14 +55,14 @@ function ControlledBoard() {
 
   function handleCardMove(_card, source, destination) {
     const updatedBoard = moveCard(controlledBoard, source, destination);
-    console.log(updatedBoard);
+    // console.log(updatedBoard);
     setBoard(updatedBoard);
   }
 
   return (
-    <Board onCardDragEnd={handleCardMove} disableColumnDrag>
+    <Board 
+    onCardDragEnd={handleCardMove} disableColumnDrag>
       {controlledBoard}
-      
     </Board>
   );
 }
@@ -72,7 +71,6 @@ export default function Dragcom() {
   return (
     <div className="tableui">
       <ControlledBoard />
-    
-    </div>
+          </div>
   );
 }

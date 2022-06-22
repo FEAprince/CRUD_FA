@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useRef } from "react";
 import { validTodo } from "../helper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LoadingButton from "@mui/lab/LoadingButton";
 import AddIcon from "@mui/icons-material/Add";
+// import { useParams } from "react-router-dom";
 import SaveIcon from "@mui/icons-material/Save";
-
 import {
   todoHandlerpostData,
   todoHandlerDataDelete,
   todoHandlergetData,
+  todoHandlerDataUpdate,
 } from "../service/auth.service";
 import { useEffect, useState } from "react";
 import { suceessMessage } from "../helper";
@@ -21,11 +22,33 @@ export default function Todo() {
   const [APIData, setAPIData] = useState([]);
   // const [disableButton, setDisableButton] = useState(false);
   const [loading, setLoading] = useState(false);
+  // const [todoList, setodoList] = React.useState([]);
+  // const [dataList, setDataList] = useRef(new Map());
+  const dragItem = useRef();
+  const dragOverItem = useRef();
   useEffect(() => {
     getData();
   }, []);
+
   const body = {
     id: localStorage.getItem("id"),
+  };
+
+  const dragStart = (e, position) => {
+    dragItem.current = position;
+  };
+  const dragEnter = (e, position) => {
+    dragOverItem.current = position;
+  };
+  const drop = (e) => {
+    const copyListItems = [...APIData];
+    const dragItemContent = copyListItems[dragItem.current];
+    copyListItems.splice(dragItem.current, 1);
+    copyListItems.splice(dragOverItem.current, 0, dragItemContent);
+    dragItem.current = null;
+    dragOverItem.current = null;
+    setAPIData(copyListItems);
+    console.log(copyListItems);
   };
 
   const validate = () => {
@@ -36,6 +59,20 @@ export default function Todo() {
     }
     return formIsValid;
   };
+
+  const handleSubmit = () => {
+    // eslint-disable-next-line
+    APIData.map((data) => {
+      console.log("data", data);
+      const response = todoHandlerDataUpdate(data.id, data.title);
+      console.log(response.data);
+    });
+  };
+  // const copyListItems = [...APIData];
+
+  // const handleSubmit = (e) => {
+  //   updateDataSet();
+  // };
 
   const postData = async (event) => {
     event.preventDefault();
@@ -106,12 +143,12 @@ export default function Todo() {
       <LoadingButton
         size="small"
         type="submit"
-        loading={loading}
+        // loading={loading}
         endIcon={<SaveIcon />}
         loadingPosition="end"
         variant="contained"
+        onClick={handleSubmit}
       >
-        <span></span>
         Save
       </LoadingButton>
       <div className="row">
@@ -119,34 +156,39 @@ export default function Todo() {
           <div>
             <h4 className="todocard">Todo List</h4>
 
+            {/* APIData.slice(0)
+                .reverse() */}
             {APIData.length > 0 ? (
-              APIData.slice(0)
-                .reverse()
-                .map((data) => {
-                  return (
-                    <div key={data.id}>
-                      <Box
-                        className="todoui"
-                        sx={{
-                          display: "grid",
-                          gridTemplateColumns: "repeat(2, 1fr)",
-                        }}
-                      >
-                        <div>{data.todo}</div>
-                        <div>
-                          <Button
-                            label="Delete Todo"
-                            onClick={() => onDelete(data.id)}
-                            startIcon={<DeleteIcon />}
-                          >
-                            Delete
-                          </Button>
-                        </div>
-                      </Box>
-                      {/* </Draggable> */}
-                    </div>
-                  );
-                })
+              APIData.map((data, index) => {
+                return (
+                  <div
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    onDragEnd={drop}
+                    key={index}
+                    draggable
+                  >
+                    <Box
+                      className="todoui"
+                      sx={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(, 1fr)",
+                      }}
+                    >
+                      <div>{data.todo}</div>
+                      <div>
+                        <Button
+                          label="Delete Todo"
+                          onClick={() => onDelete(data.id)}
+                          startIcon={<DeleteIcon />}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </Box>
+                  </div>
+                );
+              })
             ) : (
               <div className="text">Todo Not Found!</div>
             )}
