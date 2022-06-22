@@ -52,7 +52,7 @@ export default function Read() {
   };
 
   return (
-    <div>
+    <div >
       <div>
         <div>
           <div className="text tableui">
@@ -83,7 +83,7 @@ export default function Read() {
             </tr>
           </thead>
           <tbody>
-            {Data.length > 0 ? (
+            {Data.length > 0 &&
               Data.map((data, index) => {
                 return (
                   <tr key={data.id}>
@@ -110,13 +110,11 @@ export default function Read() {
                     </td>
                   </tr>
                 );
-              })
-            ) : (
-              <CircularProgress colSpan="10" className="text" />
-            )}
+              })}
           </tbody>
         </table>
 
+        {Data.length < 1 && <div className="circulardiv"> <CircularProgress /></div>}
         <Dialog
           open={open}
           onClose={handleClose}
